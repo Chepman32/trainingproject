@@ -1,26 +1,61 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
+import React from "react";
+import Info from "./components/Info";
+import Form from "./components/Form";
+import Weather from "./components/Weather";
+const API_KEY = "f9b001589d96b792e00bebfe7f0c5aae"
+class App extends React.Component {
+    state = {
+        temp: undefined,
+        city: undefined,
+        country: undefined,
+        pressure: undefined,
+        sunset: undefined,
+        error: undefined
+    }
+    gettingWeather = async (e) => {
+        e.preventDefault();
+        const city = e.target.elements.city.value;
+        if(city) {
+            const api_url = await fetch(`https://cors-anywhere.herokuapp.com/https://samples.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
+        const data = await api_url.json();
+        let sunset = data.sys.sunset;
+        let date = new Date();
+        date.setTime(sunset);
+        var sunset_date = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+            this.setState({
+            temp: data.main.temp,
+            city: data.name,
+            country: data.sys.country,
+            pressure: data.main.pressure,
+            sunset: sunset_date,
+            error: " "
+        });
+        }
+        else {
+            this.setState({
+                temp: undefined,
+                city: undefined,
+                country: undefined,
+                pressure: undefined,
+                sunset: undefined,
+                error: "Введите название города"
+            });
+        }
+    }
+    render() {
+        return (
+            <div>
+                <Info/>
+                <Form weatherMethod={this.gettingWeather}/>
+                <Weather temp={this.state.temp}
+                city={this.state.city}
+                country={this.state.country}
+                sunrise={this.state.pressure}
+                sunset={this.state.sunset}
+                error={this.state.error}/>
+            </div>
+        );
+    }
+    
+};
 export default App;
