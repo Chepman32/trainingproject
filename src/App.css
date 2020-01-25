@@ -68,6 +68,8 @@ input[type="text"] {
 
 input::-webkit-input-placeholder {
   color: #103a65;
+  font-size: 1.5em;
+  font-weight: 600;
 }
 
 input::-moz-placeholder {
@@ -79,11 +81,15 @@ button {
   border-bottom: 4px solid #103a65;
   padding: 8px 20px;
   margin: 0 2px;
-  border-radius: 2px;
+  border-radius: 6px;
   cursor: pointer;
   background-color: #235d9c;
   color: #fff;
   outline: none!important;
+  box-sizing: border-box;
+}
+button:hover {
+  border: none;
 }
 
 button:hover {

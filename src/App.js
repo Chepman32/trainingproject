@@ -16,7 +16,7 @@ class App extends React.Component {
         e.preventDefault();
         const city = e.target.elements.city.value;
         if(city) {
-            const api_url = await fetch(`https://cors-anywhere.herokuapp.com/https://samples.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`);
+            const api_url = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appId=f9b001589d96b792e00bebfe7f0c5aae&units=metric`);
         const data = await api_url.json();
         let sunset = data.sys.sunset;
         let date = new Date();
