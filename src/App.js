@@ -38,7 +38,7 @@ class App extends React.Component {
                 country: undefined,
                 pressure: undefined,
                 sunset: undefined,
-                error: "Введите название города"
+                error: "Enter name of city"
             });
         }
     }
